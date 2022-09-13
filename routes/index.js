@@ -1,13 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const apicache = require('apicache');
 const url = require('url');
 
 const API_BASE_URL = process.env.API_BASE_URL;
 const API_KEY_NAME = process.env.API_KEY_NAME;
 const API_KEY_VALUE = process.env.API_KEY_VALUE;
 
+// Init cache
+let cache = apicache.middleware
 
-router.get('/', async (req, res, next) => {
+// caches the reponse for 2 minutes
+router.get('/', cache('2 minutes'),async (req, res, next) => {
     try{
 
         // console.log(url.parse(req.url, true).query);
